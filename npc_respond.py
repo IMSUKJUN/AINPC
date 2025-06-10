@@ -82,6 +82,7 @@ def npc_respond(request: PlayerResponseRequest):
             memory_text = (
                 "당신은 아래와 같은 과거의 말을 기억하고 있어요. "
                 "하지만 반드시 이 내용을 언급할 필요는 없고, 현재 대화와 관련이 있다면 자연스럽게 반영해도 괜찮습니다.\n"
+                "너는 어떻게 생각해 같은 말도 삼가하세요. \n"
                 f"{memory_lines}\n\n"
             )
         else:
