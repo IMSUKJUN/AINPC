@@ -13,7 +13,7 @@ function appendMessage(text, sender) {
 
 async function startConversation() {
   startBtn.style.display = 'none';
-  const res = await fetch("https://your-app-name.onrender.com/npc/generate_question?npc_id=영희");
+  const res = await fetch("https://ainpc.onrender.com/npc/start");
   const data = await res.json();
   appendMessage(data.question, 'npc');
 }
@@ -27,7 +27,7 @@ async function sendMessage() {
   appendMessage(content, 'player');
   input.value = '';
 
-  const res = await fetch("https://your-app-name.onrender.com/npc/respond", {
+  const res = await fetch("https://ainpc.onrender.com/npc/respond", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ npc_id: "영희", content: content })

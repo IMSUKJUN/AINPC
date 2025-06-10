@@ -12,6 +12,7 @@ from npc_config import get_npc_profile
 from npc_respond import router as respond_router
 from npc_generate_question import router as generate_question_router
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 import os
 
 app = FastAPI()
@@ -38,9 +39,11 @@ class NPCRequest(BaseModel):
 class NPCResponse(BaseModel):
     response: str
 
-@app.get("/")
-def root():
-    return {"message": "NPC API 서버입니다."}
+@app.get("/", response_class=HTMLResponse)
+async def read_index():
+    with open(os.path.join(BASE_DIR, "static", "index.html"), "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
 
 
 @app.post("/npc/ask", response_model=NPCResponse)
