@@ -1,0 +1,54 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f6f6f6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+}
+
+#chat-box {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  height: 300px;
+  overflow-y: scroll;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.message.npc {
+  background-color: #dcefff;
+  align-self: flex-start;
+}
+
+.message.player {
+  background-color: #e0ffe0;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+textarea {
+  flex-grow: 1;
+  resize: none;
+  height: 60px;
+  padding: 8px;
+}

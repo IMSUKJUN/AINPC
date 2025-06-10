@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>영희와의 대화</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>영희와의 대화</h1>
+    <div id="chat-box"></div>
+
+    <div class="controls">
+      <textarea id="playerInput" placeholder="답변을 입력하세요..."></textarea>
+      <button onclick="sendMessage()">보내기</button>
+      <button onclick="endConversation()">대화 종료</button>
+    </div>
+
+    <button id="startBtn" onclick="startConversation()">▶️ 대화 시작</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
