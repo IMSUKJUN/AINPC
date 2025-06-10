@@ -29,3 +29,10 @@ class EmotionState(Base):
     anger = Column(Integer, default=0)
     anxiety = Column(Integer, default=0)
     last_updated = Column(DateTime, default=datetime.utcnow)
+
+class BiasState(Base):
+    __tablename__ = "bias_state"
+
+    npc_id = Column(String(50), primary_key=True)
+    score = Column(Integer, default=10)
+    last_updated = Column(DateTime, default=datetime.utcnow)

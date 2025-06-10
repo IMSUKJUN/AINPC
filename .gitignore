@@ -4,9 +4,11 @@ venv/
 
 # 캐시
 __pycache__/
+*.pyc
 
 # 데이터베이스
 *.db
+*.sqlite3
 
 # 환경변수
 .env

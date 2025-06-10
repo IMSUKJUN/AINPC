@@ -10,6 +10,7 @@ from emotion_utils import (
     get_emotions, update_emotions, analyze_emotions_from_input,
     apply_recovery_if_valid, adjust_emotion_by_memory, is_emotion_uncontrolled
 )
+from bias_utils import get_bias, get_bias_level
 
 router = APIRouter()
 
@@ -95,6 +96,38 @@ def npc_respond(request: PlayerResponseRequest):
         else:
             closing_instruction = "\n원하는 대로 한 문단 이내로 말해주세요.\n"
 
+        current_bias = get_bias(request.npc_id)
+        bias_level = get_bias_level(current_bias["score"])
+
+        if bias_level == "A":
+            bias_text = (
+                "당신은 심리상태가 비교적 안정적이에요.\n"
+                "단정적으로 말하지 않아요.\n"
+            )
+        elif bias_level == "B":
+            bias_text = (
+                "당신은 약간은 불안하고 망설이는 듯한 말투를 쓰고 있어요.\n"
+                "당신은 스스로가 못나 보일 수 있다 생각하지만, 아직은 개의치 않으려고 부단히 노력해요.\n"
+            )
+        elif bias_level == "C":
+            bias_text = (
+                "타인의 시선을 신경쓰기 시작했어요. \n"
+                "자기비평적인 태도를 가지기 시작했어요. \n"
+                "당신은 스스로 생각하는 자신의 안좋은 모습에 대해 확신을 가지기 시작했지만, 설득당할 가능성도 아직은 남아 있어요.\n"
+            )
+        elif bias_level == "D":
+            bias_text = (
+                "당신은 심리적으로 불안정한 상태에요. \n"
+                "자기비판적인 태도를 가지며, 타인의 시선을 많이 신경쓰고 있어요. \n"
+                "당신은 스스로를 못난 사람이라고 생각하고, 그 생각이 확고해지고 있어요.\n"
+            )
+        elif bias_level == "E":
+            bias_text = (
+                "당신은 심리적으로 병적인 상태에요. \n"
+                "자기비난적인 태도를 가지며, 타인의 시선을 지나치게 신경쓰고 있어요. \n"
+                "스스로의 모습을 혐오하기에, 극단적인 방식을 추구해요.\n"
+            )
+
         # 6. system_prompt 구성
         system_prompt = {
             "role": "system",
@@ -111,6 +144,7 @@ def npc_respond(request: PlayerResponseRequest):
                 "AI는 당신의 감정을 받아주는 존재예요. 지금 당신은 AI에게 말하고 있어요.\n"
                 "질문이나 의견을 먼저 던지는 형식으로 한 문단 이내로 말해주세요."
                 + closing_instruction
+                + "\n\n" + bias_text
             )
         }
 
