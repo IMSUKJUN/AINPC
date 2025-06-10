@@ -13,7 +13,7 @@ function appendMessage(text, sender) {
 
 async function startConversation() {
   startBtn.style.display = 'none';
-  const res = await fetch("https://ainpc.onrender.com/npc/start");
+  const res = await fetch("https://ainpc.onrender.com/npc/generate_question?npc_id=영희");
   const data = await res.json();
   appendMessage(data.question, 'npc');
 }

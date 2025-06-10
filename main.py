@@ -23,7 +23,7 @@ app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), na
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://ainpc.onrender.com", "http://127.0.0.1:8000", "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -33,7 +33,7 @@ app.include_router(respond_router)
 app.include_router(generate_question_router)
 
 class NPCRequest(BaseModel):
-    input: List[dict]  # 예: [{"role": "user", "content": "안녕"}]
+    input: List[dict]  
     npc_id: str = "영희"
 
 class NPCResponse(BaseModel):
@@ -41,7 +41,10 @@ class NPCResponse(BaseModel):
 
 @app.get("/", response_class=HTMLResponse)
 async def read_index():
-    with open(os.path.join(BASE_DIR, "static", "index.html"), "r", encoding="utf-8") as f:
+    index_html_path = os.path.join(BASE_DIR, "static", "index.html")
+    if not os.path.exists(index_html_path):
+        raise HTTPException(status_code=404, detail="index.html not found in static directory")
+    with open(index_html_path, "r", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
 
